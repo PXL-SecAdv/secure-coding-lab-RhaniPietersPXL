@@ -45,7 +45,6 @@ app.get('/authenticate/:username/:password', async (request, response) => {
     } else {
         response.status(400).json({ error: 'Invalid username or password format' });
     }
-});
 
     const query = `SELECT * FROM users WHERE user_name='${username}' and password='${password}'`;
     console.log(query);
