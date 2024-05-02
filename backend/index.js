@@ -30,6 +30,23 @@ app.get('/authenticate/:username/:password', async (request, response) => {
     const username = request.params.username;
     const password = request.params.password;
 
+    const usernameRegex = /^[a-zA-Z0-9_]+$/;
+    const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]+$/;
+
+    function isValidInput(input, regex) {
+        return regex.test(input);
+    }
+
+    const isValidUsername = isValidInput(username, usernameRegex);
+    const isValidPassword = isValidInput(password, passwordRegex);
+
+    if (isValidUsername && isValidPassword) {
+        response.status(200).json({ message: 'Valid username and password' });
+    } else {
+        response.status(400).json({ error: 'Invalid username or password format' });
+    }
+});
+
     const query = `SELECT * FROM users WHERE user_name='${username}' and password='${password}'`;
     console.log(query);
     pool.query(query, (error, results) => {
