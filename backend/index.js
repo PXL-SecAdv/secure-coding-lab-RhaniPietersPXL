@@ -29,7 +29,7 @@ app.use(
 app.get('/authenticate/:username/:password', async (request, response) => {
     const username = request.params.username;
     const password = request.params.password;
-    alert(password);
+    console.log(password);
 
     const query = 'SELECT * FROM users WHERE user_name = ? AND password = ?';
     console.log(query);
@@ -40,7 +40,6 @@ app.get('/authenticate/:username/:password', async (request, response) => {
         response.status(200).json(results.rows)
     });
 });
-
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
